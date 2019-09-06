@@ -1,0 +1,218 @@
+
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+<meta charset="UTF-8">                                                    <!--文字コード-->
+<meta http-equiv="Content-Style-Type" content="text/css">                 <!--CSSを使います-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta name="if:Hide Tumblr Controls" content="0" />
+<title>ストーリー要素ジェネレーター</title>
+<style>
+ {CustomCSS}
+    {block:IfHideTumblrControls}
+        #tumblr_controls { display: none; }
+    {/block:IfHideTumblrControls}
+
+iframe#tumblr_controls{
+	display:none;
+}
+iframe.iframe-controls--phone-mobile {
+	display: none;
+}
+
+iframe.tmblr-iframe--app-cta-button.tmblr-iframe--loaded {
+	display: none;
+}
+
+    body{
+        margin:0px 0px 0px 0px
+        text-align: center;
+    }
+    #wrapper{
+        margin:10px;
+    }
+    h1{
+        font-family:serif;
+    }
+    p{
+
+    }
+    td{
+        border:solid 1px #999999;
+    }
+    .rTitle{background-color: aliceblue;
+    }
+    #button{
+        background-color: aliceblue;
+        padding: 5px;
+        border-style: solid;
+    }
+</style>
+<script>
+//配列を入れる変数を用意
+//更新しないデータはそのまま配列にする
+var triggerArray = ["殺害された","暴力を受けた","目が覚めたら○○だった","解雇された","退職した",
+                    "共犯させられた","見てはいけないものを見た","乗り過ごした","迷子になった",
+                    "怖いところに来た","遭難した","異世界に来た","初めての人に会う",
+                    "無人島に流された","帰郷した","人探しを依頼された","親しい存在が失踪",
+                    "魅力的な人間と出会う","最悪な人間と出会う","自分よりも優秀な存在の出現",
+                    "突然不思議な存在が出現","使命を背負わされる","守らなくてはならない人ができる",
+                    "罪を償わなくてはならない","孤独な人に友が出来る","監禁される","突然周りの人に無視される",
+                    "孤独な人と友達になる","怖い人に執拗に追いかけられる",
+                    "殺人事件に巻込まれる","盗難に遭う","都市伝説に巻込まれる","都市伝説の調査を依頼される",
+                    "突然体の一部に異常が現れる","町が滅ぶ","突然裏山に塔が建つ","怪文書が届く",
+                    "好きな人に嫌われる","仲間が去ろうとしている","自分が炎上した","推しが炎上した",
+                    "仲間が炎上した","会社がつぶれそう","部活の部員が足りない",
+                    "グループの運営が難しい","地元のお店がピンチ","余命を宣告されてしまう","身体の一部を失う",
+                    "親しい人が病気になる","殺害予告される","ストーカーに遭う","通り魔的に襲われる",
+                    "顔見知りに襲われる","自分または親しい人が襲われる","冤罪をかけられる","お気に入りの場所がなくなる",
+                    "罪を犯す","害のある生物が生活圏に登場する","ケアレスミス",
+                    "引っ越し","死に損なった","身の丈に合わない力を得る",
+                    "決闘を申し込まれる","戻れないところまで来る"];//きっかけ
+
+var wantArray = ["アイドルになりたい","トップアイドルになりたい","優勝したい",
+                "自分の才能を認めてもらいたい","今の自分が嫌いだから変わりたい",
+                "かわいくなりたい","助けてくれたあの人に報いたい","承認されたい",
+                "未知の土地を目指したい","何かを自分の手で為したい","安全に暮らせる場所を目指す",
+                "復讐がしたい","逃亡したい","お金が欲しい","名声が欲しい","組織を作りたい",
+                "好きな人に告白したい","恋人と別れたい","恋人とのことを周りに打ち明けたい",
+                ];//欲求
+
+var emotionArray = ['愛(喜び＋信頼)','服従(信頼＋恐れ)','畏怖(恐れ＋驚き)',
+'拒絶(驚き＋悲しみ)','後悔(悲しみ＋嫌悪)','軽蔑(嫌悪＋怒り)',
+'攻撃(怒り＋期待)','楽観(期待+喜び)','罪悪感(喜び＋恐れ)',
+'好奇心(信頼＋驚き)','絶望(恐れ＋悲しみ)','憤慨(驚き＋嫌悪)',
+'悲憤(悲しみ+怒り)','皮肉(嫌悪＋期待)','自尊心(怒り+喜び)',
+'運命(期待＋信頼)','感動(喜び＋驚き)','感傷(信頼＋悲しみ)',
+'恥辱(恐れ＋嫌悪)','憎悪(驚き＋怒り)','悲観(悲しみ＋期待)',
+'不健全(嫌悪＋喜び)','優越(怒り＋信頼)','不安(期待＋恐れ)'];//感情
+
+//var conflictArray = ['接近と接近','回避と回避','接近と回避'];//葛藤
+
+var lostArray = ["愛","信頼","感情","命","良心","大切な人","平和",
+                "安全","日常","仲間","健康","財産","仕事",
+                "地位","自由","住処"];//失うもの
+
+var keyWordArray = ["宇宙","台風","別荘","無人島",
+    "夜の繁華街","路地裏","知らない街",
+    "街中の廃墟","俳優、女優", "幽霊",
+    "占い師","霊媒師","魔女","魔法少女",
+    "フォロワー","流行りもの","回送","チャット",
+    "メール","劣等感","才能","ラスボス","疑心暗鬼",
+    "フリー素材","ハラスメント","フリマアプリ","正体不明",
+    "死体","動画サイト","オフ会","夜の散歩","飲み会",
+    "朝の散歩","ソーダ","知育菓子","SNS","独占欲","承認欲求",
+    "隠し通路","隠し扉","AI",
+    "ふらっと旅に出る","水遊び","トマソン",
+    "駄菓子屋さん","秘密基地","しゃぼんだま",
+    "海を見る","カフェ","流星群","天文台",
+    "裏山","面接","犯行現場","不登校","ピクニック",
+    "無人駅","お菓子作り","希死念慮","死生観","引きこもり",
+    "アイドル","ソシャゲ","催眠術","薬物","ゲーム実況",
+    "アプリ","超能力","宝くじ","相互不理解","記憶喪失","偶像視",
+    "礼拝","パーティ","手術","デスゲーム","ストーカー",
+    "締切","闇堕ち","呪い","シャーデンフロイデ","停電",
+    "宇宙人","憑依","復活","虚言癖","サイコパス","バグ",
+    "仮想現実","ループ","ギャンブル","不可抗力",
+    "共依存","依存","裏アカ","スケープゴート","グロ画像",
+    "抑圧","ペルソナ", "不機嫌","酩酊","心酔","宗教",
+    "黒幕","冗談","隙間","葬儀","憐れみ","祈り","悪夢",
+    "メサイアコンプレックス","使命","変身","お伽噺","絶体絶命",
+    "絶滅危惧種","踏切","不審者",];//キーワード
+
+var pretenseArray = ["外敵A","自分の中の悪A","自分の罪が生んだ因果A"];//見せかけの敵
+
+var t_enemyArray = ["外敵B","自分の中の悪B","自分の罪が生んだ因果B"];//本当の敵
+
+var limitArray = ["時間","権限","場所","資材","情報","行動","人材"];//制約
+
+var giftArray = ["大金","不思議な力","武器","仲間",];//ギフト
+
+//ランダムで値を選定する
+//配列のマックス数を出す
+var tri_count = triggerArray.length;
+var wan_count = wantArray.length;
+var emo_count = emotionArray.length;
+var los_count = lostArray.length;
+var limi_count = limitArray.length;
+var gif_count = giftArray.length;
+var key_count = keyWordArray.length;
+
+//ボタンが押されたら以下の処理
+function action(){
+    //敵をランダムで選ぶ
+    var pret_key = Math.floor(Math.random() *  3);
+    var tm_key = Math.floor(Math.random() *  3);
+    
+    //配列の要素を選ぶことができないのでキー番号を選ぶ
+    var tri_key = Math.floor(Math.random() * tri_count);
+    var wan_key = Math.floor(Math.random() * wan_count);
+    var los_key = Math.floor(Math.random() * los_count);
+    var emo_key1 = Math.floor(Math.random() * emo_count);
+    var emo_key2 = Math.floor(Math.random() * emo_count);
+    //var con_key = Math.floor(Math.random() *  3);
+    var tur_key = Math.floor(Math.random() *  3);
+    var limi_key = Math.floor(Math.random() * limi_count);
+    var gif_key = Math.floor(Math.random() * gif_count);
+    var key_key1 = Math.floor(Math.random() * key_count);
+    var key_key2 = Math.floor(Math.random() * key_count);
+    var key_key3 = Math.floor(Math.random() * key_count);
+
+    //敵構文を作る
+    var enemy = "敵は"+pretenseArray[pret_key]+"(実は"+t_enemyArray[tm_key]+")";
+    
+    //転機配列を作る
+    var turningArray = [enemy,"失ったはずのものが生きていた","目的はすぐそばにあった"];
+    
+    //結果を入れる変数を用意し、中に配列とランダムなキー番号を詰め込む
+    var triggerResult = triggerArray[tri_key];//きっかけ結果
+    var wantResult = wantArray[wan_key];//欲求結果
+    var lostResult = lostArray[los_key]; //失うもの結果
+    var limitResult = limitArray[limi_key];//制約結果
+    var giftResult = giftArray[gif_key];//ギフト結果
+    var emotionResult1 = emotionArray[emo_key1];//感情結果1
+    var emotionResult2 = emotionArray[emo_key2];//感情結果2
+    //var conflictResult = conflictArray[con_key];//葛藤結果
+    var turningResult = turningArray[tur_key];//転機結果
+    var keyWordResult1 = keyWordArray[key_key1];//キーワード結果1
+    var keyWordResult2 = keyWordArray[key_key2];//キーワード結果2
+    var keyWordResult3 = keyWordArray[key_key3];//キーワード結果3
+
+    //HTMLに埋め込んで出力
+    document.getElementById("trigger").innerHTML = triggerResult;
+    document.getElementById("want").innerHTML = wantResult;
+    document.getElementById("lost").innerHTML = lostResult;
+    document.getElementById("limit").innerHTML = limitResult;
+    document.getElementById("gift").innerHTML = giftResult;
+    document.getElementById("emotion1").innerHTML = emotionResult1;
+    document.getElementById("emotion2").innerHTML = emotionResult2;
+    //document.getElementById("conflict").innerHTML = conflictResult;
+    document.getElementById("turning").innerHTML = turningResult;
+    document.getElementById("keyword1").innerHTML = keyWordResult1;
+    document.getElementById("keyword2").innerHTML = keyWordResult2;
+    document.getElementById("keyword3").innerHTML = keyWordResult3;
+};
+</script>
+</head>
+<body>
+<div id="wrapper">
+<h1>storygen</h1>
+<input type="button" value="開始" id="button" onclick="action();">
+<table id="result">
+    <tr><td class="rTitle">きっかけ</td><td id="trigger">　　</td></tr>
+    <tr><td class="rTitle">欲求</td><td id="want">　　</td></tr>
+    <tr><td class="rTitle">失うもの</td><td id="lost">　　</td></tr>
+    <!--<tr><td class="rTitle">葛藤</td><td id="conflict">　　</td></tr>-->
+    <tr><td class="rTitle">転機</td><td id="turning">　　</td></tr>
+    <tr><td class="rTitle">制約</td><td id="limit">　　</td></tr>
+    <tr><td class="rTitle">ギフト</td><td id="gift">　　</td></tr>
+    <tr><td class="rTitle">主人公の感情</td><td id="emotion1">　　</td></tr>
+    <tr><td class="rTitle">対立する者の感情</td><td id="emotion2">　　</td></tr>
+    <tr><td class="rTitle">キーワード１</td><td id="keyword1">　　</td></tr>
+    <tr><td class="rTitle">キーワード２</td><td id="keyword2">　　</td></tr>
+    <tr><td class="rTitle">キーワード３</td><td id="keyword3">　　</td></tr>
+</table>
+</div>
+</body>
+</html>

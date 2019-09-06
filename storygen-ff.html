@@ -1,0 +1,164 @@
+
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+<meta charset="UTF-8">                                                    <!--文字コード-->
+<meta http-equiv="Content-Style-Type" content="text/css">                 <!--CSSを使います-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta name="if:Hide Tumblr Controls" content="0" />
+<title>ストーリー要素ジェネレーター:二次創作編</title>
+<style>
+ {CustomCSS}
+    {block:IfHideTumblrControls}
+        #tumblr_controls { display: none; }
+    {/block:IfHideTumblrControls}
+
+iframe#tumblr_controls{
+	display:none;
+}
+iframe.iframe-controls--phone-mobile {
+	display: none;
+}
+
+iframe.tmblr-iframe--app-cta-button.tmblr-iframe--loaded {
+	display: none;
+}
+
+    body{
+        margin:0px 0px 0px 0px
+        text-align: center;
+    }
+    #wrapper{
+        margin:10px;
+    }
+    h1{
+        font-family:serif;
+    }
+    p{
+
+    }
+    td{
+        border:solid 1px #999999;
+    }
+    .rTitle{background-color: aliceblue;
+    }
+    #button{
+        background-color: aliceblue;
+        padding: 5px;
+        border-style: solid;
+    }
+</style>
+<script>
+//配列を入れる変数を用意
+var ifArray = ["信念を失ったら？","精神が不健全になったら？","幽霊に取り憑かれたら？",
+                "風邪をひいたら？","大切なものを失ったら？","不思議な力を手に入れたら？",
+                "精神的に追い詰められたら？","目が覚めたら○○だったら？","大切な人が傷つけられたら？",
+                "人を殺してしまったら？","共犯するとしたら？","盗難に遭ったら？",
+                "ストーカーに遭ったら？","運命に出会ったら？","知らない土地に迷い込んだら？",
+                "酔い潰れたら？","監禁されたら？","幽体離脱してしまったら？","世界が滅ぶとしたら？",
+                "性格が逆転したら？","二人暮らしをはじめたら？","未来を語るなら？","不安になるとしたら？",
+                "宝くじ1等を当てたら？","記憶喪失になったら？","眠れない夜は？","大切なものを失ったら？",
+                "明晰夢を見たら？","悪いことを勧められたら？","遭難したら？","「変わりたい」と思うなら？",
+                "復讐を誓うなら？", "助けてくれた人に報いるなら？","ひとつだけ願いが叶うとしたら？",
+                "弱みを握られたら？","弱みを見せるとしたら？","落ち込んだら？","朝早く起きすぎたら？",
+                "変な次元に迷い込んだら？","仲間がいなくなろうとしていたら？",
+                "「自分だけが××のことを知っている世界」に来たら？", "「誰も○○のことを知らない世界」に来たら？",
+                "××と合作するとしたら？",
+                ];//もしも
+
+                var keyWordArray = ["宇宙","台風","別荘","無人島",
+                    "夜の繁華街","路地裏","知らない街",
+                    "街中の廃墟","俳優、女優", "幽霊",
+                    "占い師","霊媒師","魔女","魔法少女",
+                    "フォロワー","流行りもの","回送","チャット",
+                    "メール","劣等感","才能","ラスボス","疑心暗鬼",
+                    "フリー素材","ハラスメント","フリマアプリ","正体不明",
+                    "死体","動画サイト","オフ会","夜の散歩","飲み会",
+                    "朝の散歩","ソーダ","知育菓子","SNS","独占欲","承認欲求",
+                    "隠し通路","隠し扉","AI",
+                    "ふらっと旅に出る","水遊び","トマソン",
+                    "駄菓子屋さん","秘密基地","しゃぼんだま",
+                    "海を見る","カフェ","流星群","天文台",
+                    "裏山","面接","犯行現場","不登校","ピクニック",
+                    "無人駅","お菓子作り","希死念慮","死生観","引きこもり",
+                    "アイドル","ソシャゲ","催眠術","薬物","ゲーム実況",
+                    "アプリ","超能力","宝くじ","相互不理解","記憶喪失","偶像視",
+                    "礼拝","パーティ","手術","デスゲーム","ストーカー",
+                    "締切","闇堕ち","呪い","シャーデンフロイデ","停電",
+                    "宇宙人","憑依","復活","虚言癖","サイコパス","バグ",
+                    "仮想現実","ループ","ギャンブル","不可抗力",
+                    "共依存","依存","裏アカ","スケープゴート","グロ画像",
+                    "抑圧","ペルソナ", "不機嫌","酩酊","心酔","宗教",
+                    "黒幕","冗談","隙間","葬儀","憐れみ","祈り","悪夢",
+                    "メサイアコンプレックス","使命","変身","お伽噺","絶体絶命",
+                    "絶滅危惧種","踏切","不審者",];//キーワード
+
+var pretenseArray = ["外敵A","自分の中の悪A","自分の罪が生んだ因果A"];//見せかけの敵
+
+var t_enemyArray = ["外敵B","自分の中の悪B","自分の罪が生んだ因果B"];//本当の敵
+
+var situationArray = ["お泊り","飲み会","テーマパーク","買い物","お祭り","通話","仕事",
+                    "猫を追いかける","植物を育てる","旅行","休日","春","夏","秋","冬",
+                    "雨の日","ゲーム","待ち合わせ","黄昏","おもちゃ売り場","海","コンビニ",
+                    "スーパー","食べ歩き","駅",];//シチュエーション
+
+//ランダムで値を選定する
+//配列のマックス数を出す
+var if_count = ifArray.length;
+var key_count = keyWordArray.length;
+var situ_count = situationArray.length;
+
+//ボタンが押されたら以下の処理
+function action(){
+    //敵をランダムで選ぶ
+    var pret_key = Math.floor(Math.random() *  3);
+    var tm_key = Math.floor(Math.random() *  3);
+    
+    //配列の要素を選ぶことができないのでキー番号を選ぶ
+    var if_key = Math.floor(Math.random() * if_count);
+    var situ_key = Math.floor(Math.random() * situ_count);
+    var tur_key = Math.floor(Math.random() *  3);
+    var key_key1 = Math.floor(Math.random() * key_count);
+    var key_key2 = Math.floor(Math.random() * key_count);
+    var key_key3 = Math.floor(Math.random() * key_count);
+
+    //敵構文を作る
+    var enemy = "敵は"+pretenseArray[pret_key]+"(実は"+t_enemyArray[tm_key]+")";
+    
+    //転機配列を作る
+    var turningArray = [enemy,"失ったはずのものが生きていた","目的はすぐそばにあった"];
+    
+    //結果を入れる変数を用意し、中に配列とランダムなキー番号を詰め込む
+    var ifResult = ifArray[if_key];//欲求結果
+    var situResult = situationArray[situ_key];//シチュエーション結果
+    var turningResult = turningArray[tur_key];//転機結果
+    var keyWordResult1 = keyWordArray[key_key1];//キーワード結果1
+    var keyWordResult2 = keyWordArray[key_key2];//キーワード結果2
+    var keyWordResult3 = keyWordArray[key_key3];//キーワード結果3
+
+    //HTMLに埋め込んで出力
+    document.getElementById("if").innerHTML = ifResult;
+    document.getElementById("situ").innerHTML = situResult;
+    document.getElementById("turning").innerHTML = turningResult;
+    document.getElementById("keyword1").innerHTML = keyWordResult1;
+    document.getElementById("keyword2").innerHTML = keyWordResult2;
+    document.getElementById("keyword3").innerHTML = keyWordResult3;
+};
+</script>
+</head>
+<body>
+<div id="wrapper">
+<h1>storygen-ff</h1>
+<input type="button" value="開始" id="button" onclick="action();">
+<table id="result">
+    <tr><td class="rTitle">もしも○○が</td><td id="if">　　</td></tr>
+    <tr><td class="rTitle">キーワード１</td><td id="keyword1">　　</td></tr>
+    <tr><td class="rTitle">キーワード２</td><td id="keyword2">　　</td></tr>
+    <tr><td class="rTitle">キーワード３</td><td id="keyword3">　　</td></tr>
+    <tr><td class="rTitle">シチュエーション</td><td id="situ">　　</td></tr>
+    <tr><td class="rTitle">展開</td><td id="turning">　　</td></tr>
+</table>
+</div>
+</body>
+</html>
