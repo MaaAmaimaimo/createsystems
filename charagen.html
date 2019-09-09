@@ -1,0 +1,114 @@
+
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+<meta charset="UTF-8">                                                    <!--文字コード-->
+<meta http-equiv="Content-Style-Type" content="text/css">                 <!--CSSを使います-->
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<title>キャラクタージェネレーター</title>
+<style>
+    body{
+        margin:0px 0px 0px 0px;
+    }
+    #wrapper{
+        margin:10px;
+    }
+    h1{
+        font-family:serif;
+    }
+    td{
+        border:solid 1px #999999;
+    }
+    .rTitle{background-color: aliceblue;
+    }
+    #button{
+        background-color: aliceblue;
+        padding: 5px;
+        border-style: solid;
+    }
+</style>
+<script>
+//配列を入れる変数を用意
+var sx = ["男性","女性"];//身体上の性別
+
+var btype = ["A","B","O","AB","不明"];//血液型
+
+var eco = ["貧しい","中下","中上","裕福"];//家庭の経済状況
+
+var disci = ["厳しい","そこそこ","甘い"];//どんなしつけを受けたか
+
+var biei = ["美しい","平凡","地味","コンプレクスあり"];//美醜
+
+var flove = ["深い","そこそこ","浅い"];//家族の愛
+
+var edu = ["放任","過保護","勉強重視","道徳重視","遊び重視"];//教育方針
+
+var grades = ["優秀","良","並","悪い"];//成績
+
+var enia = ["1w9（理想主義者）","1w2（擁護者）","2w1（尽くす人）","2w3（もてなす人）","3w2（魅了する人）",
+"3w4（プロフェッショナル）","4w3（貴族）","4w5（ボヘミアン）","5w4（因習を打破する人）",
+"5w6（問題を解決する人）","6w5（ディフェンダー）","6w7（バディ）","7w6（エンターテイナー）",
+"7w8（現実主義者）","8w7（独立した人）","8w9（クマさん）","9w8（調停者）","9w1（夢見る人）"];//エニアグラム
+
+//ランダムで値を選定する
+//配列のマックス数を出す
+// var oooo = ooArray.length;
+// var ooo = ooooArray.length;
+// var ooo = ooArray.length;
+
+//ボタンが押されたら以下の処理
+function action(){
+    //配列の要素を選ぶことができないのでキー番号を選ぶ
+    var sx_key = Math.floor(Math.random() * 2);
+    var btype_key = Math.floor(Math.random() * 5);
+    var eco_key = Math.floor(Math.random() *  4);
+    var disci_key = Math.floor(Math.random() * 3);
+    var biei_key = Math.floor(Math.random() * 4);
+    var flove_key = Math.floor(Math.random() * 3);
+    var edu_key = Math.floor(Math.random() * 5);
+    var grades_key = Math.floor(Math.random() * 4);
+    var enia_key = Math.floor(Math.random() * 18);
+
+    //結果を入れる変数を用意し、中に配列とランダムなキー番号を詰め込む
+    var sxResult = sx[sx_key];//身体上の性別
+    var btypeResult = btype[btype_key];//血液型
+    var ecoResult = eco[eco_key];//経済状況
+    var disciResult = disci[disci_key];//しつけ
+    var bieiResult = biei[biei_key];//美醜
+    var floveResult = flove[flove_key];//家族の愛
+    var eduResult = edu[edu_key];//教育方針
+    var gradesResult = grades[grades_key];//成績
+    var eniaResult = enia[enia_key];//エニアグラム
+
+    //HTMLに埋め込んで出力
+    document.getElementById("sx").innerHTML = sxResult;
+    document.getElementById("btype").innerHTML = btypeResult;
+    document.getElementById("eco").innerHTML = ecoResult;
+    document.getElementById("disci").innerHTML = disciResult;
+    document.getElementById("biei").innerHTML = bieiResult;
+    document.getElementById("flove").innerHTML = floveResult;
+    document.getElementById("edu").innerHTML = eduResult;
+    document.getElementById("grades").innerHTML = gradesResult;
+    document.getElementById("enia").innerHTML = eniaResult;
+};
+</script>
+</head>
+<body>
+<div id="wrapper">
+<h1>Charactergen</h1>
+<input type="button" value="開始" id="button" onclick="action();">
+<table id="result">
+    <tr><td class="rTitle">身体上の性別</td><td id="sx">　　</td></tr>
+    <tr><td class="rTitle">血液型</td><td id="btype">　　</td></tr>
+    <tr><td class="rTitle">家庭の経済状況</td><td id="eco">　　</td></tr>
+    <tr><td class="rTitle">しつけ</td><td id="disci">　　</td></tr>
+    <tr><td class="rTitle">美醜</td><td id="biei">　　</td></tr>
+    <tr><td class="rTitle">家族の愛</td><td id="flove">　　</td></tr>
+    <tr><td class="rTitle">教育方針</td><td id="edu">　　</td></tr>
+    <tr><td class="rTitle">成績</td><td id="grades">　　</td></tr>
+    <tr><td class="rTitle">エニアグラム</td><td id="enia">　　</td></tr>
+</table>
+</div>
+</body>
+</html>
