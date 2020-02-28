@@ -42,58 +42,58 @@ let interPersonal = ["人見知り","積極的","積極的","対人恐怖","他�
                     "いろんな人と社交したい","合う人とは社交したい","年下と仲良くなりやすい",
                     "年上と仲良くなりやすい","来るもの拒まず去るもの追わず","依存的"];//対人
 
-//その他jsonデータ取得
-var req = new XMLHttpRequest();
-req.onreadystatechange = function() {
-    if(req.readyState == 4 && req.status == 200){
-        let caracterity = req.responseText.caracterity;
-    }
-};
-req.open("GET", "characterGen.json", false);
-req.send(null);
+let characterity = ["不器用","料理下手","天才","器用","きれい好き",
+		            "料理上手","秀才","オタク","過集中","飽きっぽい",
+            		"音痴","歌がうまい","話すのが上手","話すのが下手",
+	            	"体力がある","方向音痴","アウトロー","優等生",
+            		"アホ","少食","偏食","あざとい","食いしん坊",
+            		"面白人間","トラブルメーカー"];
 
-console.log(caracterity);
+let desire = ["有名になりたい","好きなものを極めたい","夢を見つけたい",
+    		"(任意)といっしょにいたい","(任意)に認められたい","自分の強さを誇示したい",
+    		"(任意)に必要とされたい","(任意)を探している","(任意)を守りたい",
+    		"(任意)に追いつきたい","平穏を求めている","楽しいことをしたい",
+    		"目標を達成したい","自分に自信を持ちたい"];
+
+let hobby = ["料理","ゲーム","小説","漫画","インターネット","プログラミング",
+    		"ファッション・メイク","カフェめぐり","食べること","散歩","執筆",
+    		"お絵かき","写真","DIY","スポーツ","スポーツ観戦","体操","キャンプ",
+    		"旅行","勉強","占い","カラオケ","オカルト","映画"];
 
 //ランダムで値を選定する
 //配列のマックス数を出す
-// var oooo = ooArray.length;
-// var ooo = ooooArray.length;
-// var ooo = ooArray.length;
+var max_ap = actionPolicy.length;
+var max_moral = moral.length;
+var max_ip = interPersonal.length;
+var max_cr = characterity.length;
+var max_desire = desire.length;
+var max_hobby = hobby.length;
 
 //ボタンが押されたら以下の処理
 function action(){
     //配列の要素を選ぶことができないのでキー番号を選ぶ *要素数
     var sx_key = Math.floor(Math.random() * 2);
     var btype_key = Math.floor(Math.random() * 5);
-    var eco_key = Math.floor(Math.random() *  4);
-    var disci_key = Math.floor(Math.random() * 3);
-    var biei_key = Math.floor(Math.random() * 4);
-    var flove_key = Math.floor(Math.random() * 3);
-    var edu_key = Math.floor(Math.random() * 5);
-    var grades_key = Math.floor(Math.random() * 4);
-    var enia_key = Math.floor(Math.random() * 18);
+    var ap_key = Math.floor(Math.random() *  max_ap);
+    var moral_key = Math.floor(Math.random() * max_moral);
+    var ip_key = Math.floor(Math.random() * max_ip);
+    var cr_key = Math.floor(Math.random() * max_cr);
+    var desire_key = Math.floor(Math.random() * max_desire);
+    var hobby_key = Math.floor(Math.random() * max_hobby);
 
     //結果を入れる変数を用意し、中に配列とランダムなキー番号を詰め込む
-    var sxResult = sx[sx_key];//身体上の性別
-    var btypeResult = btype[btype_key];//血液型
-    var ecoResult = eco[eco_key];//経済状況
-    var disciResult = disci[disci_key];//しつけ
-    var bieiResult = biei[biei_key];//美醜
-    var floveResult = flove[flove_key];//家族の愛
-    var eduResult = edu[edu_key];//教育方針
-    var gradesResult = grades[grades_key];//成績
-    var eniaResult = enia[enia_key];//エニアグラム
+    // var sxResult = sx[sx_key];//身体上の性別
+    // var btypeResult = btype[btype_key];//血液型
 
     //HTMLに埋め込んで出力
-    document.getElementById("sx").innerHTML = sxResult;
-    document.getElementById("btype").innerHTML = btypeResult;
-    document.getElementById("eco").innerHTML = ecoResult;
-    document.getElementById("disci").innerHTML = disciResult;
-    document.getElementById("biei").innerHTML = bieiResult;
-    document.getElementById("flove").innerHTML = floveResult;
-    document.getElementById("edu").innerHTML = eduResult;
-    document.getElementById("grades").innerHTML = gradesResult;
-    document.getElementById("enia").innerHTML = eniaResult;
+    document.getElementById("sx").innerHTML = sx[sx_key];
+    document.getElementById("btype").innerHTML = btype[btype_key];
+    document.getElementById("actionpolicy").innerHTML = actionPolicy[ap_key];
+    document.getElementById("moral").innerHTML = moral[moral_key];
+    document.getElementById("interpersonal").innerHTML = interPersonal[ip_key];
+    document.getElementById("characterity").innerHTML = characterity[cr_key];
+    document.getElementById("desire").innerHTML = desire[desire_key];
+    document.getElementById("hobby").innerHTML = hobby[hobby_key];
 };
 </script>
 </head>
@@ -105,12 +105,12 @@ function action(){
     <tr><td class="rTitle">身体上の性別</td><td id="sx">　　</td></tr>
     <tr><td class="rTitle">血液型</td><td id="btype">　　</td></tr>
     <tr><td class="rTitle"></td><td id="eco">　　</td></tr>
-    <tr><td class="rTitle">キャラ付け</td><td id="disci">　　</td></tr>
-    <tr><td class="rTitle">欲求</td><td id="biei">　　</td></tr>
-    <tr><td class="rTitle">行動方針</td><td id="flove">　　</td></tr>
-    <tr><td class="rTitle">道徳</td><td id="edu">　　</td></tr>
-    <tr><td class="rTitle">人との接し方</td><td id="grades">　　</td></tr>
-    <tr><td class="rTitle">趣味</td><td id="enia">　　</td></tr>
+    <tr><td class="rTitle">キャラ付け</td><td id="characterity">　　</td></tr>
+    <tr><td class="rTitle">欲求</td><td id="desire">　　</td></tr>
+    <tr><td class="rTitle">行動方針</td><td id="actionpolicy">　　</td></tr>
+    <tr><td class="rTitle">道徳</td><td id="moral">　　</td></tr>
+    <tr><td class="rTitle">人との接し方</td><td id="interpersonal">　　</td></tr>
+    <tr><td class="rTitle">趣味</td><td id="hobby">　　</td></tr>
 </table>
 </div>
 </body>
