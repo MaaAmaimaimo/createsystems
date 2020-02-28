@@ -43,17 +43,16 @@ let interPersonal = ["人見知り","積極的","積極的","対人恐怖","他�
                     "年上と仲良くなりやすい","来るもの拒まず去るもの追わず","依存的"];//対人
 
 //その他jsonデータ取得
-let caracterData = null;
 var req = new XMLHttpRequest();
 req.onreadystatechange = function() {
     if(req.readyState == 4 && req.status == 200){
-        caracterData = req.responseText;
+        let caracterity = req.responseText.caracterity;
     }
 };
 req.open("GET", "characterGen.json", false);
 req.send(null);
 
-console.log(caracterData);
+console.log(caracterity);
 
 //ランダムで値を選定する
 //配列のマックス数を出す
