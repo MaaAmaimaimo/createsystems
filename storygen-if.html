@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Style-Type" content="text/css"> 
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<script src="words.js"></script>
+<title>ネタ出し用ツール(ifストーリー))</title>
+<style>
+    body{
+        margin:0px 0px 0px 0px;
+    }
+    #wrapper{
+        margin:10px;
+        text-align: center;
+    }
+    h1{
+        font-family:serif;
+    }
+    .words, #scenario, #feeling4u{
+        font-family:serif;
+        font-size: 25px;
+        font-weight: 500;
+    }
+    #scenario{
+        margin-bottom: 20px;
+    }
+    #button{
+        background-color: white;
+        padding: 5px;
+        border-style: solid;
+        margin-bottom: 20px;
+    }
+    .box {
+        margin       : auto;
+        width        : 50px;
+        height       : 50px;
+        background   : white;
+    }
+</style>
+<script>
+//ランダムで値を選定する
+//それぞれの最大数取得
+var if_count = if_story.length;
+
+//ボタンが押されたら以下の処理
+function action(){
+    // 色
+    var hue = 360 * Math.random();
+    var sat = 100 * Math.random();
+    var lum = 85 * Math.random();
+    var color = "hsl(" + hue + ", " + sat + "%, " + lum + "%)";
+    document.getElementById('imagecolor').style.backgroundColor = color;
+
+    // キーワードの取得
+    //ランダムに値を取得
+    var if_key = Math.floor(Math.random() * if_count);
+
+    //HTMLに埋め込んで出力
+    document.getElementById("if_story").innerHTML = if_story[if_key];//もしも
+};
+</script>
+</head>
+<body>
+    <div id="wrapper">
+        <h1>story_keyword_gen_if</h1>
+        <input type="button" value="start" id="button" onclick="action();">
+        <div id="area_if_story">
+            <p>If Story</p>
+            <span id="if_story" class="words">-</span>
+        </div>
+        <div id="area_imgcolor">
+            <p>Image Color</p>
+            <div class="box" id="imagecolor"></div>
+        </div>
+    </div>
+</body>
+</html>
