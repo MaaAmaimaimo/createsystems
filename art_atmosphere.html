@@ -32,6 +32,12 @@
         border-style: solid;
         margin-bottom: 20px;
     }
+    .box {
+        margin       : auto;
+        width        : 50px;
+        height       : 50px;
+        background   : white;
+    }
 </style>
 <script>
 //ランダムで値を選定する
@@ -43,8 +49,10 @@ var scenario_count = scenario.length;
 function action(){
 
     var hue = 360 * Math.random();
-    var color = "hsl(" + hue + ", 100%, 80%)";
-    document.body.style.backgroundColor = color;
+    var sat = 100 * Math.random();
+    var lum = 85 * Math.random();
+    var color = "hsl(" + hue + ", " + sat + "%, " + lum + "%)";
+    document.getElementById('imagecolor').style.backgroundColor = color;
 
     // キーワードの取得
     //ランダムに値を取得
@@ -62,15 +70,23 @@ function action(){
 </script>
 </head>
 <body>
-<div id="wrapper">
-<h1>story_keyword_gen</h1>
-<input type="button" value="start" id="button" onclick="action();">
-<div id="scenario"></div>
-<div id="keywords">
-    <span id="keyword1" class="words"> </span>　
-    <span id="keyword2" class="words"> </span>　
-    <span id="keyword3" class="words"> </span>
-</div>
-</div>
+    <div id="wrapper">
+        <h1>story_keyword_gen</h1>
+        <input type="button" value="start" id="button" onclick="action();">
+        <div id="area_scenario">
+            <p>Story Line</p>
+            <div id="scenario">-</div>
+        </div>
+        <div id="keywords">
+            <p>Keywords</p>
+            <span id="keyword1" class="words">-</span>　
+            <span id="keyword2" class="words">-</span>　
+            <span id="keyword3" class="words">-</span>
+        </div>
+        <div id="area_imgcolor">
+            <p>Image Color</p>
+            <div class="box" id="imagecolor"></div>
+        </div>
+    </div>
 </body>
 </html>
