@@ -18,7 +18,7 @@
     h1{
         font-family:serif;
     }
-    .words, #scenario{
+    .words, #scenario, #feeling4u{
         font-family:serif;
         font-size: 25px;
         font-weight: 500;
@@ -44,10 +44,11 @@
 //それぞれの最大数取得
 var key_count = keywords.length;
 var scenario_count = scenario.length;
+var f4u_count = feelings4u.length;
 
 //ボタンが押されたら以下の処理
 function action(){
-
+    // 色
     var hue = 360 * Math.random();
     var sat = 100 * Math.random();
     var lum = 85 * Math.random();
@@ -60,12 +61,14 @@ function action(){
     var key_key1 = Math.floor(Math.random() * key_count);
     var key_key2 = Math.floor(Math.random() * key_count);
     var key_key3 = Math.floor(Math.random() * key_count);
+    var f4u_key = Math.floor(Math.random() * f4u_count);
 
     //HTMLに埋め込んで出力
-    document.getElementById("scenario").innerHTML = scenario[scenario_key];
+    document.getElementById("scenario").innerHTML = scenario[scenario_key]; //ストーリーライン
     document.getElementById("keyword1").innerHTML = keywords[key_key1];//キーワード結果1
     document.getElementById("keyword2").innerHTML = keywords[key_key2];//キーワード結果2
     document.getElementById("keyword3").innerHTML = keywords[key_key3];//キーワード結果3
+    document.getElementById("feeling4u").innerHTML = feelings4u[f4u_key];//君への気持ち
 };
 </script>
 </head>
@@ -86,6 +89,10 @@ function action(){
         <div id="area_imgcolor">
             <p>Image Color</p>
             <div class="box" id="imagecolor"></div>
+        </div>
+        <div id="area_feeling4u">
+            <p>Feeling for You</p>
+            <div id="feeling4u">-</div>
         </div>
     </div>
 </body>
