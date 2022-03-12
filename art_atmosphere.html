@@ -13,14 +13,18 @@
     }
     #wrapper{
         margin:10px;
+        text-align: center;
     }
     h1{
         font-family:serif;
     }
-    .words{
+    .words, #scenario{
         font-family:serif;
         font-size: 30px;
         font-weight: 500;
+    }
+    #scenario{
+        margin-bottom: 20px;
     }
     #button{
         background-color: white;
@@ -33,44 +37,39 @@
 //ランダムで値を選定する
 //それぞれの最大数取得
 var key_count = keywords.length;
+var scenario_count = scenario.length;
 
 //ボタンが押されたら以下の処理
 function action(){
 
-    // 色の取得
-    // var color = {r:100, g:100, b:100};    // RGB 100～255の値で設定
-    // for(var i in color){
-    //     color[i] = Math.floor(Math.random() * 256);
-    // }
-    // var myColor = "rgb(" + color.r + ", " + color.g + ", " + color.b + ")";
-    // document.body.style.backgroundColor = myColor;
+    var hue = 360 * Math.random();
+    var color = "hsl(" + hue + ", 100%, 80%)";
+    document.body.style.backgroundColor = color;
 
     // キーワードの取得
     //ランダムに値を取得
+    var scenario_key = Math.floor(Math.random() * scenario_count);
     var key_key1 = Math.floor(Math.random() * key_count);
     var key_key2 = Math.floor(Math.random() * key_count);
     var key_key3 = Math.floor(Math.random() * key_count);
 
-    //結果を取る
-    var keyWordResult1 = keywords[key_key1];//キーワード結果1
-    var keyWordResult2 = keywords[key_key2];//キーワード結果2
-    var keyWordResult3 = keywords[key_key3];//キーワード結果3
-
     //HTMLに埋め込んで出力
-    document.getElementById("keyword1").innerHTML = keyWordResult1;
-    document.getElementById("keyword2").innerHTML = keyWordResult2;
-    document.getElementById("keyword3").innerHTML = keyWordResult3;
+    document.getElementById("scenario").innerHTML = scenario[scenario_key];
+    document.getElementById("keyword1").innerHTML = keywords[key_key1];//キーワード結果1
+    document.getElementById("keyword2").innerHTML = keywords[key_key2];//キーワード結果2
+    document.getElementById("keyword3").innerHTML = keywords[key_key3];//キーワード結果3
 };
 </script>
 </head>
 <body>
 <div id="wrapper">
-<h1>key word gen</h1>
-<input type="button" value="開始" id="button" onclick="action();">
+<h1>story_keyword_gen</h1>
+<input type="button" value="start" id="button" onclick="action();">
+<div id="scenario"></div>
 <div id="keywords">
-    <div id="keyword1" class="words"> </div>
-    <div id="keyword2" class="words"> </div>
-    <div id="keyword3" class="words"> </div>
+    <span id="keyword1" class="words"> </span>　
+    <span id="keyword2" class="words"> </span>　
+    <span id="keyword3" class="words"> </span>
 </div>
 </div>
 </body>
